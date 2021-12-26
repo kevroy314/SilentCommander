@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SilentCommander": {
+      "commandName": "Project",
+      "commandLineArgs": "\"powershell -c (New-Object Media.SoundPlayer 'c:\\Users\\Kevin\\Desktop\\test.wav').PlaySync();\""
+    }
+  }
+}
