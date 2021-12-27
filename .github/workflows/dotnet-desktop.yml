@@ -20,9 +20,9 @@ jobs:
       
     steps:
     - name: Set Version
-      run: echo "Version=$( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' )" >> $GITHUB_ENV
+      run: echo "VERSION=$( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' )" >> $GITHUB_ENV
     - name: Test Version
-      run: echo $VERSION
+      run: echo ${{ env.VERSION }}
       
     - name: Checkout
       uses: actions/checkout@v2
