@@ -18,13 +18,7 @@ jobs:
       Wap_Project_Directory: ./SilentCommander                    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: ./SilentCommander/SilentCommander.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
       
-    steps:
-    - name: Set Version
-      run: echo "VERSION=$( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' )" >> $GITHUB_ENV
-    - name: Test Version
-      shell: pwsh
-      run: echo ${{ env.VERSION }}
-      
+    steps:      
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -72,8 +66,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ env.Version }}
-        release_name:  ${{ env.Version }}
+        tag_name: $( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' )
+        release_name:  $( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' )
         draft: false
         prerelease: false
 
