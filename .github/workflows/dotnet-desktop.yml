@@ -17,9 +17,13 @@ jobs:
       Solution_Name: ./SilentCommander.sln                        # Replace with your solution name, i.e. MyWpfApp.sln.
       Wap_Project_Directory: ./SilentCommander                    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: ./SilentCommander/SilentCommander.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-      Version: v0.${{ curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p' }}
       
     steps:
+    - name: Set Version
+      run: echo "Version=$( curl -I -k "https://api.github.com/repos/kevroy314/SilentCommander/commits?per_page=1" | sed -n '/^[Ll]ink:/ s/.*"next".*page=\([0-9]*\).*"last".*/\1/p')" ) >> $VERSION
+    - name: Test Version
+      run: echo $VERSION
+      
     - name: Checkout
       uses: actions/checkout@v2
       with:
