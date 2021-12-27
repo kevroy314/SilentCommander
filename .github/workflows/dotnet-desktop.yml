@@ -58,7 +58,10 @@ jobs:
       with:
         name: MSIX Package
         path: ${{ env.Wap_Project_Directory }}\bin\Release\Release.zip
-      
+
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     # Create the release:  https://github.com/actions/create-release
     - name: Create release
       id: create_release
@@ -66,8 +69,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ github.ref }}
-        release_name:  ${{ github.ref }}
+        tag_name: ${{ github.ref }}_${{ github.ref_name }}_${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}
+        release_name:  release-${{ steps.date.outputs.date }}
         draft: false
         prerelease: false
 
